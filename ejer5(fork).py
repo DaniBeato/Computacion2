@@ -12,5 +12,5 @@ for (op, ar) in opt:
     for i in range(int(procesos)):
         proceso = os.fork()
         if proceso == 0:
-          print('Soy el proceso: ', os.getpid(), 'mi padre es: ', os.getppid())
-          sys.exit()
+            print('Soy el proceso: ', os.getpid(), 'mi padre es: ', os.getppid())
+            sys.exit()
