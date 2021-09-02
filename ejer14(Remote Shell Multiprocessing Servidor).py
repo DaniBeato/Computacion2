@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import socket, subprocess
+import socket, subprocess, multiprocessing
 
 
 
@@ -9,9 +9,30 @@ host = socket.gethostname()
 port = 6000
 serversocket.bind((host, port))
 serversocket.listen()
-print("Esperando conexiones remotas (accept)")
-clientsocket, addr = serversocket.accept()
-print("Got a connection from %s" % str(addr))
+
+
+
+def funcion_hijo(clientsocket):
+    while True:
+        datos = clientsocket.recv(1024)
+        datos = (datos.decode('utf8'))
+        datos = subprocess.Popen([datos], shell = True, stdout = subprocess.PIPE, stderr = subprocess.PIPE, text = True)
+        stdout, stderr = datos.communicate()
+        if datos.returncode == 0:
+            envio = ("OK     "+stdout)
+            clientsocket.send(envio.encode('utf8'))
+        else:
+            envio = ("ERROR   "+stderr)
+            clientsocket.send(envio.encode('utf8'))
+
+
+
+while True:
+    print("Esperando conexiones remotas (accept)")
+    clientsocket, addr = serversocket.accept()
+    print("Got a connection from %s" % str(addr))
+    hijo = multiprocessing.Process(target=funcion_hijo, args=(clientsocket,))
+    hijo.start()
 
 
 '''
@@ -24,25 +45,6 @@ while True:
     datos = str(datos.decode("ascii"))
     stdout = os.popen(datos).read()
     clientsocket.send(stdout.encode("ascii"))'''
-
-
-while True:
-    try:
-        datos = clientsocket.recv(1024)
-        datos = (datos.decode('utf8'))
-        datos = subprocess.Popen([datos], shell = True, stdout = subprocess.PIPE, stderr = subprocess.PIPE, text = True)
-        stdout, stderr = datos.communicate()
-        if datos.returncode == 0:
-            envio = ("OK     "+stdout)
-            clientsocket.send(envio.encode('utf8'))
-        else:
-            envio = ("ERROR   "+stderr)
-            clientsocket.send(envio.encode('utf8'))
-    except:
-        serversocket.listen()
-        print("Esperando conexiones remotas (accept)")
-        clientsocket, addr = serversocket.accept()
-        print("Got a connection from %s" % str(addr))
 
 
 

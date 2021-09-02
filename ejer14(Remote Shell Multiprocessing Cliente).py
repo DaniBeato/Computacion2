@@ -31,4 +31,3 @@ while True:
     salida = s.recv(1024)
     salida.decode('utf8')
     print(salida)
-
