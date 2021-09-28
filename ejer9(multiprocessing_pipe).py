@@ -9,7 +9,6 @@ def hijo1(emisor):
 
 
 def hijo2(receptor):
-     #while True:
         msg = receptor.recv()
         print('Leyendo (pid: ', os.getpid(), '):', msg)
 
