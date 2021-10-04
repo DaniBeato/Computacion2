@@ -3,14 +3,14 @@
 import sys, socket, getopt
 
 if __name__=='__main__':
-    (opt, arg) = getopt.getopt(sys.argv[1:], 'p:t:f:')
+    (opt, arg) = getopt.getopt(sys.argv[1:], 'a:p:t:')
     for (op,ar) in opt:
         if op == '-a':
-            host = int(ar)
+            host = (ar)
         if op == '-p':
             puerto = int(ar)
         if op == '-t':
-            protocolo = int(ar)
+            protocolo = str(ar)
 
     if protocolo == 'tcp':
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

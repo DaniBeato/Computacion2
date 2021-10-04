@@ -8,9 +8,9 @@ if __name__=='__main__':
         if op == '-p':
             puerto = int(ar)
         if op == '-t':
-            protocolo = int(ar)
+            protocolo = str(ar)
         if op == '-f':
-            ruta = int(ar)
+            ruta = str(ar)
 
     if protocolo == 'tcp':
         serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
