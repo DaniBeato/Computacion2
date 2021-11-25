@@ -1,0 +1,6 @@
+Todo comienza cuando se reciben los argumentos. Luego se ejecuta la función 'start', con la que empieza un temporizador.
+Posteriormente, arranca la función 'main', que crea un event loop junto con las tasks correspondientes, para ejecutar a
+través de la función 'chain' la primer task. Esta task cuenta con una variable que almacena un tiempo aleatorio de espera
+que, una vez concluido, finaliza su ejecución. Tras esto, se ejecuta la segunda task que también cuenta con un tiempo de
+espera, que una vez finalizado, permite que el resultado de dicha función se guarde junto con los demás, mostrando cuanto
+tiempo ha tomado su ejecución y la del programa completo.
